@@ -29,7 +29,8 @@ public class SchedulerConfig {
 		this.myJobFactory = myJobFactory;
 	}
 
-	@Bean(name="SchedulerFactory")
+//	@Bean(name="SchedulerFactory")
+	@Bean
 	public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
 		//Spring提供SchedulerFactoryBean为Scheduler提供配置信息,并被Spring容器管理其生命周期
 		SchedulerFactoryBean factory = new SchedulerFactoryBean();

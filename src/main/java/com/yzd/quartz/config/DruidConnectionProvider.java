@@ -5,7 +5,6 @@ package com.yzd.quartz.config;/**
  */
 
 import com.alibaba.druid.pool.DruidDataSource;
-import lombok.Data;
 import org.quartz.SchedulerException;
 import org.quartz.utils.ConnectionProvider;
 import org.springframework.stereotype.Component;
@@ -20,8 +19,6 @@ import java.sql.SQLException;
  * Author: yzd
  * Date: 2020-10-13  17:05
  */
-@Component
-@Data
 public class DruidConnectionProvider implements ConnectionProvider {
 
 	/**
@@ -133,4 +130,98 @@ public class DruidConnectionProvider implements ConnectionProvider {
 		}
 	}
 
+	/*
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 *
+	 * 提供get set方法
+	 *
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	 */
+	public String getDriver() {
+		return driver;
+	}
+
+	public void setDriver(String driver) {
+		this.driver = driver;
+	}
+
+	public String getURL() {
+		return URL;
+	}
+
+	public void setURL(String URL) {
+		this.URL = URL;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getMaxConnections() {
+		return maxConnections;
+	}
+
+	public void setMaxConnections(int maxConnections) {
+		this.maxConnections = maxConnections;
+	}
+
+	public String getMaxCachedStatementsPerConnection() {
+		return maxCachedStatementsPerConnection;
+	}
+
+	public void setMaxCachedStatementsPerConnection(String maxCachedStatementsPerConnection) {
+		this.maxCachedStatementsPerConnection = maxCachedStatementsPerConnection;
+	}
+
+	public String getDiscardIdleConnectionsSeconds() {
+		return discardIdleConnectionsSeconds;
+	}
+
+	public void setDiscardIdleConnectionsSeconds(String discardIdleConnectionsSeconds) {
+		this.discardIdleConnectionsSeconds = discardIdleConnectionsSeconds;
+	}
+
+	public String getValidationQuery() {
+		return validationQuery;
+	}
+
+	public void setValidationQuery(String validationQuery) {
+		this.validationQuery = validationQuery;
+	}
+
+	public boolean isValidateOnCheckout() {
+		return validateOnCheckout;
+	}
+
+	public void setValidateOnCheckout(boolean validateOnCheckout) {
+		this.validateOnCheckout = validateOnCheckout;
+	}
+
+	public int getIdleConnectionValidationSeconds() {
+		return idleConnectionValidationSeconds;
+	}
+
+	public void setIdleConnectionValidationSeconds(int idleConnectionValidationSeconds) {
+		this.idleConnectionValidationSeconds = idleConnectionValidationSeconds;
+	}
+
+	public DruidDataSource getDatasource() {
+		return datasource;
+	}
+
+	public void setDatasource(DruidDataSource datasource) {
+		this.datasource = datasource;
+	}
 }

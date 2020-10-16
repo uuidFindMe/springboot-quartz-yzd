@@ -16,7 +16,7 @@
     </resultMap>
 
     <sql id="selectJobLogVo">
-        select job_log_id, job_name, job_group, invoke_target, job_message, status, exception_info, create_time 
+        select job_log_id, job_name, job_group, bean_name, job_message, status, exception_info, create_time
 		from sys_job_log
     </sql>
 
@@ -32,8 +32,8 @@
             <if test="status != null and status != ''">
                 AND status = #{status}
             </if>
-            <if test="invokeTarget != null and invokeTarget != ''">
-                AND invoke_target like concat('%', #{invokeTarget}, '%')
+            <if test="beanName != null and beanName != ''">
+                AND bean_name like concat('%', #{beanName}, '%')
             </if>
             <if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
                 and date_format(create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
@@ -73,7 +73,7 @@
         <if test="jobLogId != null and jobLogId != 0">job_log_id,</if>
         <if test="jobName != null and jobName != ''">job_name,</if>
         <if test="jobGroup != null and jobGroup != ''">job_group,</if>
-        <if test="invokeTarget != null and invokeTarget != ''">invoke_target,</if>
+        <if test="beanName != null and beanName != ''">bean_name,</if>
         <if test="jobMessage != null and jobMessage != ''">job_message,</if>
         <if test="status != null and status != ''">status,</if>
         <if test="exceptionInfo != null and exceptionInfo != ''">exception_info,</if>
@@ -82,7 +82,7 @@
         <if test="jobLogId != null and jobLogId != 0">#{jobLogId},</if>
         <if test="jobName != null and jobName != ''">#{jobName},</if>
         <if test="jobGroup != null and jobGroup != ''">#{jobGroup},</if>
-        <if test="invokeTarget != null and invokeTarget != ''">#{invokeTarget},</if>
+        <if test="beanName != null and beanName != ''">#{beanName},</if>
         <if test="jobMessage != null and jobMessage != ''">#{jobMessage},</if>
         <if test="status != null and status != ''">#{status},</if>
         <if test="exceptionInfo != null and exceptionInfo != ''">#{exceptionInfo},</if>

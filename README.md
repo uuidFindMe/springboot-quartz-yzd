@@ -24,5 +24,5 @@ author: yzd
             <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
 ```
-#### 项目地址[Quartz](https://gitee.com/Mzhoulee/springboot-quartz.git)
+#### 项目地址[Quartz](https://github.com/uuidFindMe/springboot-quartz-yzd.git)
 

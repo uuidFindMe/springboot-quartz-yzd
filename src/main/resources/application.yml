@@ -1,0 +1,41 @@
+server:
+  port: 8079
+spring:
+  # jackson时间格式化
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.24.180.17:3306/test001?useUnicode=true&characterEncoding=UTF8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.yzd.quartz.domain
+
+#配置日志文件路径
+logging:
+#    path: ./log
+    file:
+      name: ./log/springboot-quartz.txt
+    level:
+      com.yzd.quartz: info #不同目录下的日志可配置不同级别
+      org.springfromework.web: info
+      org.hibernate.sql: debug
+      com.yzd.quartz.dao: info
+
+#https://blog.csdn.net/qq_36952874/article/details/80986945
+#reasonable：是否启用分页合理化。如果启用，当pagenum<1时，会自动查询第一页的数据，当pagenum>pages时，自动查询最后一页数据；不启用的，以上两种情况都会返回空数据
+pagehelper:
+  helperDialect: mysql
+  reasonable: false
+  supportMethodsArguments: true
+  pageSizeZero: true
+  params: count=countSql
+
+#是否激活 swagger true or false
+swagger:
+    enable: true

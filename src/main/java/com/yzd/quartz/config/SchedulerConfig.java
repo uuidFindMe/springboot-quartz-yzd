@@ -37,7 +37,7 @@ public class SchedulerConfig {
 		//启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了
 		factory.setOverwriteExistingJobs(true);
 		// 延时启动(秒)
-		factory.setStartupDelay(20);
+		factory.setStartupDelay(3);
 		//设置quartz的配置文件
 		factory.setQuartzProperties(quartzProperties());
 		//设置自定义Job Factory，用于Spring管理Job bean

@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
@@ -20,54 +21,55 @@ import java.util.List;
 @RestController
 @RequestMapping("/jobLog")
 public class SysJobLogController {
-	private final ISysJobLogService jobLogService;
+    private final ISysJobLogService jobLogService;
 
-	@Autowired
-	public SysJobLogController(ISysJobLogService jobLogService) {
-		this.jobLogService = jobLogService;
-	}
+    @Autowired
+    public SysJobLogController(ISysJobLogService jobLogService) {
+        this.jobLogService = jobLogService;
+    }
 
-	/**
-	 * 查询定时任务调度日志列表
-	 */
-	@ApiOperation(value = "查询定时任务调度日志列表")
-	@RequestMapping("/list")
-	public Result list(SysJobLog sysJobLog) {
-		Assert.notNull(sysJobLog.getPageNum(), "pageNum is null");
-		Assert.notNull(sysJobLog.getPageSize(), "pageSize is null");
-		Result result = Result.success();
-		PageHelper.startPage(sysJobLog.getPageSize(), sysJobLog.getPageNum());
-		List<SysJobLog> list = jobLogService.selectJobLogList(sysJobLog);
-		result.setResultData(list);
-		return result;
-	}
+    /**
+     * 查询定时任务调度日志列表
+     */
+    @ApiOperation(value = "查询定时任务调度日志列表")
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public Result list(@RequestBody SysJobLog sysJobLog) {
+        Assert.notNull(sysJobLog.getPageNum(), "pageNum is null");
+        Assert.notNull(sysJobLog.getPageSize(), "pageSize is null");
+        Result result = Result.success();
+        PageHelper.startPage(sysJobLog.getPageSize(), sysJobLog.getPageNum());
+        List<SysJobLog> list = jobLogService.selectJobLogList(sysJobLog);
+        result.setResultData(list);
+        return result;
+    }
 
-	/**
-	 * 根据调度编号获取详细信息
-	 */
-	@ApiOperation(value = "根据调度编号获取详细信息")
-	@RequestMapping(value = "/{jobLogId}")
-	public Result getInfo(@PathVariable Long jobLogId) {
-		Assert.notNull(jobLogId, "jobLogId is null");
-		return Result.success(jobLogService.selectJobLogById(jobLogId));
-	}
+    /**
+     * 根据调度编号获取详细信息
+     */
+    @ApiOperation(value = "根据调度编号获取详细信息")
+//	@RequestMapping(value = "/{jobLogId}")
+    @RequestMapping(value = "/getInfo", method = RequestMethod.POST)
+    public Result getInfo(@RequestBody @PathVariable Long jobLogId) {
+        Assert.notNull(jobLogId, "jobLogId is null");
+        return Result.success(jobLogService.selectJobLogById(jobLogId));
+    }
 
-	/**
-	 * 删除定时任务调度日志
-	 */
-	@ApiOperation(value = "删除定时任务调度日志")
-	@RequestMapping("/remove")
-	public Result remove(@PathVariable Long[] jobLogIds) {
-		return Result.returnResult(jobLogService.deleteJobLogByIds(jobLogIds));
-	}
+    /**
+     * 删除定时任务调度日志
+     */
+    @ApiOperation(value = "删除定时任务调度日志")
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public Result remove(@RequestBody @PathVariable Long[] jobLogIds) {
+        return Result.returnResult(jobLogService.deleteJobLogByIds(jobLogIds));
+    }
 
-	/**
-	 * 清空定时任务调度日志
-	 */
-	@ApiOperation(value = "清空定时任务调度日志")
-	@RequestMapping("/clean")
-	public Result clean() {
-		jobLogService.cleanJobLog();
-		return Result.success();
-	}
+    /**
+     * 清空定时任务调度日志
+     */
+    @ApiOperation(value = "清空定时任务调度日志")
+    @RequestMapping(value = "/clean", method = RequestMethod.POST)
+    public Result clean() {
+        jobLogService.cleanJobLog();
+        return Result.success();
+    }
 }

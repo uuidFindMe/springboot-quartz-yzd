@@ -45,7 +45,7 @@ public class QuartzDisallowConcurrentExecution extends QuartzJobBean {
 			Method method = target.getClass().getDeclaredMethod("run", Object.class);
 			method.setAccessible(true);
 			//执行
-			method.invoke(target, sysJob.getParams());
+			method.invoke(target, sysJob);
 			//任务执行总时长
 			long times = System.currentTimeMillis() - startTime;
 			log.info("非并发执行任务===执行完毕，任务ID：" + sysJob.getJobId() + "  总共耗时：" + times + "毫秒");
@@ -75,7 +75,7 @@ public class QuartzDisallowConcurrentExecution extends QuartzJobBean {
 		sysJobLog.setJobMessage(sysJobLog.getJobName() + " 总共耗时：" + runMs + "毫秒");
 		if (e != null) {
 			sysJobLog.setStatus("1");
-			sysJobLog.setExceptionInfo(StringUtils.substring(e.getMessage(), 0, 2000));
+			sysJobLog.setExceptionInfo(StringUtils.substring(e.getCause().toString(), 0, 2000));
 		} else {
 			sysJobLog.setStatus("0");
 		}

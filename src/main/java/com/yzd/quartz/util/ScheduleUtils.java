@@ -107,6 +107,7 @@ public class ScheduleUtils {
 		CronTrigger trigger =
 				TriggerBuilder.newTrigger().withIdentity(getTriggerKey(sysJob))
 						.withSchedule(scheduleBuilder)
+//						.withIdentity(sysJob.getJobName(),sysJob.getJobGroup())
 						.withDescription(sysJob.getRemark())
 						.build();
 		//放入参数，运行时的方法可以获取

@@ -22,10 +22,10 @@ logging:
     file:
       name: ./log/springboot-quartz.txt
     level:
-      com.yzd.quartz: info #不同目录下的日志可配置不同级别
-      org.springfromework.web: info
+      com.yzd.quartz: debug #不同目录下的日志可配置不同级别
+      org.springfromework.web: debug
       org.hibernate.sql: debug
-      com.yzd.quartz.dao: info
+      com.yzd.quartz.dao: debug
 
 #https://blog.csdn.net/qq_36952874/article/details/80986945
 #reasonable：是否启用分页合理化。如果启用，当pagenum<1时，会自动查询第一页的数据，当pagenum>pages时，自动查询最后一页数据；不启用的，以上两种情况都会返回空数据

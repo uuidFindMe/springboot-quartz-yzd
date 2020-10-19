@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
  * @description
  */
 @Component("testTask2")
-public class TaskTest2 implements BaseTask {
-	@Override
+public class TaskTest2 {
 	public void run(Object params) {
 		try {
 			Thread.sleep(1000L);
@@ -21,4 +20,10 @@ public class TaskTest2 implements BaseTask {
 		}
 		System.out.println("-----------TaskTest2定时任务正在执行" + params.toString() + "," + "当前类=TaskTest2.run()");
 	}
+
+	public void run2(Object params) {
+
+		System.out.println("-----------我是run2 啊  -----------------");
+	}
+
 }

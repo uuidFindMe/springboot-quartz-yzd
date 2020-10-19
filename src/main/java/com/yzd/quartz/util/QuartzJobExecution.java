@@ -46,8 +46,9 @@ public class QuartzJobExecution extends QuartzJobBean {
 			log.info("并发执行任务===任务准备执行，任务ID：" + sysJob.getJobId());
 			//获取java类对象
 			Object target = SpringContextUtils.getBean(sysJob.getBeanName());
+			String methodStr = StringUtils.isBlank(sysJob.getTargetMethod()) ? "run" : sysJob.getTargetMethod();
 			//获取执行方法
-			Method method = target.getClass().getDeclaredMethod("run", Object.class);
+			Method method = target.getClass().getDeclaredMethod(methodStr, Object.class);
 			method.setAccessible(true);
 			//执行
 			method.invoke(target, sysJob.getParams());

@@ -27,6 +27,10 @@ public class SysJob extends BaseEntity implements Serializable {
 	 */
 	private String beanName;
 	/**
+	 * spring bean名称 调用目标job的方法
+	 */
+	private String targetMethod;
+	/**
 	 * 任务ID
 	 */
 	private Long jobId;
@@ -34,12 +38,12 @@ public class SysJob extends BaseEntity implements Serializable {
 	/**
 	 * 任务名称
 	 */
-	private String jobName;
+	private String jobName = "DEFAULT_JOB_NAME";
 
 	/**
 	 * 任务组名
 	 */
-	private String jobGroup;
+	private String jobGroup = "DEFAULT_JOB_GROUP";
 
 	/**
 	 * cron执行表达式

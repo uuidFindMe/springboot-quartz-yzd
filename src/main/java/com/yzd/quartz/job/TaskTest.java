@@ -1,7 +1,5 @@
 package com.yzd.quartz.job;
 
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +12,11 @@ import org.springframework.stereotype.Component;
  * @description
  */
 @Component("testTask")
-public class TaskTest implements BaseTask {
+public class TaskTest {
 	@Autowired
 	private TaskTest2 taskTest2;
-	@Override
-	public void run(Object params){
+
+	public void run(Object params) {
 		taskTest2.run(params);
 		System.out.println("-----------TaskTest定时任务正在执行" + params + "," + "当前类=TaskTest.run()");
 	}

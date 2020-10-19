@@ -18,10 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="updateTime"  jdbcType="TIMESTAMP"   column="update_time"     />
 		<result property="remark"         column="remark"          />
 		<result property="beanName"       column="bean_name"       />
+		<result property="targetMethod"       column="target_method"       />
 	</resultMap>
 	
 	<sql id="selectJobVo">
-        select job_id, job_name, job_group, bean_name, cron_expression, misfire_policy, concurrent, status, create_by, create_time, remark 
+        select job_id, job_name, job_group, bean_name,target_method, cron_expression, misfire_policy, concurrent, status, create_by, create_time, remark
 		from sys_job
     </sql>
 	
@@ -39,6 +40,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="beanName != null and beanName != ''">
 				AND bean_name like concat('%', #{beanName}, '%')
+			</if>
+            <if test="targetMethod != null and targetMethod != ''">
+				AND target_method like concat('%', #{targetMethod}, '%')
 			</if>
 		</where>
 	</select>
@@ -69,6 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="jobName != null and jobName != ''">job_name = #{jobName},</if>
  			<if test="jobGroup != null and jobGroup != ''">job_group = #{jobGroup},</if>
  			<if test="beanName != null and beanName != ''">bean_name = #{beanName},</if>
+ 			<if test="targetMethod != null and targetMethod != ''">target_method = #{targetMethod},</if>
  			<if test="cronExpression != null and cronExpression != ''">cron_expression = #{cronExpression},</if>
  			<if test="misfirePolicy != null and misfirePolicy != ''">misfire_policy = #{misfirePolicy},</if>
  			<if test="concurrent != null and concurrent != ''">concurrent = #{concurrent},</if>
@@ -86,6 +91,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="jobName != null and jobName != ''">job_name,</if>
  			<if test="jobGroup != null and jobGroup != ''">job_group,</if>
  			<if test="beanName != null and beanName != ''">bean_name,</if>
+ 			<if test="targetMethod != null and targetMethod != ''">target_method,</if>
  			<if test="cronExpression != null and cronExpression != ''">cron_expression,</if>
  			<if test="misfirePolicy != null and misfirePolicy != ''">misfire_policy,</if>
  			<if test="concurrent != null and concurrent != ''">concurrent,</if>
@@ -98,6 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="jobName != null and jobName != ''">#{jobName},</if>
  			<if test="jobGroup != null and jobGroup != ''">#{jobGroup},</if>
  			<if test="beanName != null and beanName != ''">#{beanName},</if>
+ 			<if test="targetMethod != null and targetMethod != ''">#{targetMethod},</if>
  			<if test="cronExpression != null and cronExpression != ''">#{cronExpression},</if>
  			<if test="misfirePolicy != null and misfirePolicy != ''">#{misfirePolicy},</if>
  			<if test="concurrent != null and concurrent != ''">#{concurrent},</if>

@@ -7,9 +7,10 @@ import com.yzd.quartz.service.ISysJobService;
 import com.yzd.quartz.util.CronUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * 调度任务信息操作处理
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/job")
 public class SysJobController {
 
-    @Autowired
+    @Resource
     private ISysJobService jobService;
 
     /**
@@ -56,6 +57,9 @@ public class SysJobController {
     @ApiOperation(value = "新增定时任务")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody SysJob sysJob) throws Exception {
+        Assert.notNull(sysJob.getBeanName(), "目标类 beanName is null");
+        Assert.notNull(sysJob.getTargetMethod(), "目标方法 targetMethod is null");
+        Assert.notNull(sysJob.getCronExpression(), "CronExpression is null");
         if (!CronUtils.isValid(sysJob.getCronExpression())) {
             return Result.fail("cron表达式不正确");
         }

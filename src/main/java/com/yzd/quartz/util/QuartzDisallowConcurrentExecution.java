@@ -27,6 +27,7 @@ public class QuartzDisallowConcurrentExecution extends QuartzJobBean {
 	 * 线程本地变量
 	 */
 	private static ThreadLocal<Date> threadLocal = new ThreadLocal<>();
+
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		//设置开始时间
@@ -41,8 +42,9 @@ public class QuartzDisallowConcurrentExecution extends QuartzJobBean {
 			log.info("非并发执行任务===准备执行，任务ID：" + sysJob.getJobId());
 			//获取java类对象
 			Object target = SpringContextUtils.getBean(sysJob.getBeanName());
+			String methodStr = StringUtils.isBlank(sysJob.getTargetMethod()) ? "run" : sysJob.getTargetMethod();
 			//获取执行方法
-			Method method = target.getClass().getDeclaredMethod("run", Object.class);
+			Method method = target.getClass().getDeclaredMethod(methodStr, Object.class);
 			method.setAccessible(true);
 			//执行
 			method.invoke(target, sysJob);
@@ -56,6 +58,7 @@ public class QuartzDisallowConcurrentExecution extends QuartzJobBean {
 			after(context, sysJob, e);
 		}
 	}
+
 	/**
 	 * 执行后
 	 *
@@ -70,6 +73,7 @@ public class QuartzDisallowConcurrentExecution extends QuartzJobBean {
 		sysJobLog.setJobName(sysJob.getJobName());
 		sysJobLog.setJobGroup(sysJob.getJobGroup());
 		sysJobLog.setBeanName(sysJob.getBeanName());
+		sysJobLog.setTargetMethod(sysJob.getTargetMethod());
 		sysJobLog.setStopTime(new Date());
 		long runMs = sysJobLog.getStopTime().getTime() - sysJobLog.getStartTime().getTime();
 		sysJobLog.setJobMessage(sysJobLog.getJobName() + " 总共耗时：" + runMs + "毫秒");

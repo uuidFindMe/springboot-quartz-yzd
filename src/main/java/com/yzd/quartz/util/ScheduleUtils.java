@@ -112,7 +112,9 @@ public class ScheduleUtils {
 						.build();
 		//放入参数，运行时的方法可以获取
 		jobDetail.getJobDataMap().put(JOB_PARAM_KEY, sysJob);
+
 		scheduler.scheduleJob(jobDetail, trigger);
+
 		//暂停任务
 		if (ScheduleConstants.Status.PAUSE.getValue().equals(sysJob.getStatus())) {
 			pauseJob(scheduler, sysJob);

@@ -7,6 +7,7 @@ import com.yzd.quartz.service.ISysJobService;
 import com.yzd.quartz.util.CronUtils;
 import com.yzd.quartz.util.ScheduleUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +52,17 @@ public class SysJobServiceImpl implements ISysJobService {
 //			} else {
 //				ScheduleUtils.updateScheduleJob(scheduler, scheduleJob);
 //			}
-			ScheduleUtils.createScheduleJob(scheduler, job);
+			try {
+				ScheduleUtils.createScheduleJob(scheduler, job);
+			} catch (SchedulerException e) {
+				if (e.getMessage().contains("will never fire")) {
+					log.info("执行暂停该任务操作==="+job.toString() + "will never fire；");
+					pauseJob(job);
+				} else {
+					log.error("init===createScheduleJob error ====", e);
+				}
+			}
+
 		}
 	}
 
@@ -181,7 +192,9 @@ public class SysJobServiceImpl implements ISysJobService {
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public int insertJob(SysJob job) throws Exception {
-		job.setStatus(ScheduleConstants.Status.PAUSE.getValue());
+		if (StringUtils.isBlank(job.getStatus())) {
+			job.setStatus(ScheduleConstants.Status.NORMAL.getValue());
+		}
 		int rows = jobMapper.insertJob(job);
 		if (rows > 0) {
 			ScheduleUtils.createScheduleJob(scheduler, job);
@@ -217,7 +230,16 @@ public class SysJobServiceImpl implements ISysJobService {
 			// 防止创建时存在数据问题 先移除，然后在执行创建操作
 			scheduler.deleteJob(jobKey);
 		}
-		ScheduleUtils.createScheduleJob(scheduler, job);
+		try {
+			ScheduleUtils.createScheduleJob(scheduler, job);
+		} catch (SchedulerException e) {
+			if (e.getMessage().contains("will never fire")) {
+				log.info("执行暂停该任务操作==="+job.toString() + "will never fire；");
+				pauseJob(job);
+			} else {
+				log.error("updateSchedulerJob===createScheduleJob error ====", e);
+			}
+		}
 	}
 
 	/**

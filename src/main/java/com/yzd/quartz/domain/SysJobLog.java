@@ -26,12 +26,12 @@ public class SysJobLog extends BaseEntity {
 	/**
 	 * 任务名称
 	 */
-	private String jobName;
+	private String jobName = "DEFAULT_JOB_NAME";
 
 	/**
 	 * 任务组名
 	 */
-	private String jobGroup;
+	private String jobGroup = "DEFAULT_JOB_GROUP";
 
 	/**
 	 * 调用目标job的beanName

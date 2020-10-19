@@ -56,8 +56,8 @@ public class SysJobServiceImpl implements ISysJobService {
 				ScheduleUtils.createScheduleJob(scheduler, job);
 			} catch (SchedulerException e) {
 				if (e.getMessage().contains("will never fire")) {
-					log.info("执行暂停该任务操作==="+job.toString() + "will never fire；");
-					pauseJob(job);
+					log.info("执行删除该任务操作==="+job.toString() + "will never fire；");
+					deleteJob(job);
 				} else {
 					log.error("init===createScheduleJob error ====", e);
 				}
@@ -234,8 +234,9 @@ public class SysJobServiceImpl implements ISysJobService {
 			ScheduleUtils.createScheduleJob(scheduler, job);
 		} catch (SchedulerException e) {
 			if (e.getMessage().contains("will never fire")) {
-				log.info("执行暂停该任务操作==="+job.toString() + "will never fire；");
-				pauseJob(job);
+				log.info("执行删除该任务操作==="+job.toString() + "will never fire；");
+//				pauseJob(job);
+				deleteJob(job);
 			} else {
 				log.error("updateSchedulerJob===createScheduleJob error ====", e);
 			}

@@ -37,23 +37,23 @@ public class SysJobServiceImpl implements ISysJobService {
 	/**
 	 * 项目启动时，初始化定时器 主要是防止手动修改数据库导致未同步到定时任务处理（注：不能手动修改数据库ID和任务组名，否则会导致脏数据）
 	 */
-//	@PostConstruct
-//	public void init() throws Exception {
-//		//清除所有任务：重新添加
-//		scheduler.clear();
-//		List<SysJob> jobList = jobMapper.selectJobAll();
-//		log.info("项目启动时，初始化定时器============");
-//		for (SysJob job : jobList) {
-////			CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(scheduler, job.getJobId());
-////			//如果不存在，则创建
-////			if (cronTrigger == null) {
-////				ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
-////			} else {
-////				ScheduleUtils.updateScheduleJob(scheduler, scheduleJob);
-////			}
-//			ScheduleUtils.createScheduleJob(scheduler, job);
-//		}
-//	}
+	@PostConstruct
+	public void init() throws Exception {
+		//清除所有任务：重新添加
+		scheduler.clear();
+		List<SysJob> jobList = jobMapper.selectJobAll();
+		log.info("项目启动时，初始化定时器============");
+		for (SysJob job : jobList) {
+//			CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(scheduler, job.getJobId());
+//			//如果不存在，则创建
+//			if (cronTrigger == null) {
+//				ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
+//			} else {
+//				ScheduleUtils.updateScheduleJob(scheduler, scheduleJob);
+//			}
+			ScheduleUtils.createScheduleJob(scheduler, job);
+		}
+	}
 
 	/**
 	 * 获取quartz调度器的计划任务列表

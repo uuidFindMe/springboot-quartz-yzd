@@ -199,10 +199,10 @@ public class ScheduleUtils {
 	/**
 	 * 设置定时任务策略
 	 */
-	public static CronScheduleBuilder handleCronScheduleMisfirePolicy(SysJob job, CronScheduleBuilder cb) throws Exception {
+	private static CronScheduleBuilder handleCronScheduleMisfirePolicy(SysJob job, CronScheduleBuilder cb) throws Exception {
 		switch (job.getMisfirePolicy()) {
-			case ScheduleConstants.MISFIRE_DEFAULT:
-				return cb;
+//			case ScheduleConstants.MISFIRE_DEFAULT:
+//				return cb;
 			case ScheduleConstants.MISFIRE_IGNORE_MISFIRES:
 				return cb.withMisfireHandlingInstructionIgnoreMisfires();
 			case ScheduleConstants.MISFIRE_FIRE_AND_PROCEED:

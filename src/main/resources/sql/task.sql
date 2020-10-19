@@ -1,6 +1,9 @@
+create database if not exists quartz CHARACTER SET utf8 COLLATE utf8_general_ci;
+use quartz;
+
 -- 定时任务表结构
 -- ----------------------------
--- 15、定时任务调度表
+-- 、定时任务调度表
 -- ----------------------------
 create table if not exists sys_job (
   job_id              bigint(20)     not null auto_increment    comment '任务ID',
@@ -19,10 +22,10 @@ create table if not exists sys_job (
   primary key (job_id, job_name, job_group)
 ) engine=innodb auto_increment=100 comment = '定时任务调度表';
 
-insert into sys_job values(1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams',        '0/10 * * * * ?', '3', '1', '1', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '');
+-- insert into sys_job values(1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams',        '0/10 * * * * ?', '3', '1', '1', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '');
 
 -- ----------------------------
--- 16、定时任务调度日志表
+-- 、定时任务调度日志表
 -- ----------------------------
 create table if not exists sys_job_log (
   job_log_id          bigint(20)     not null auto_increment     comment '任务日志ID',

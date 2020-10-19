@@ -76,6 +76,7 @@ public class QuartzJobExecution extends QuartzJobBean {
 		sysJobLog.setJobName(sysJob.getJobName());
 		sysJobLog.setJobGroup(sysJob.getJobGroup());
 		sysJobLog.setBeanName(sysJob.getBeanName());
+		sysJobLog.setTargetMethod(sysJob.getTargetMethod());
 		sysJobLog.setStartTime(startTime);
 		sysJobLog.setStopTime(new Date());
 		long runMs = sysJobLog.getStopTime().getTime() - sysJobLog.getStartTime().getTime();

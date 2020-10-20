@@ -79,7 +79,11 @@ public class QuartzDisallowConcurrentExecution extends QuartzJobBean {
 		sysJobLog.setJobMessage(sysJobLog.getJobName() + " 总共耗时：" + runMs + "毫秒");
 		if (e != null) {
 			sysJobLog.setStatus("1");
-			sysJobLog.setExceptionInfo(StringUtils.substring(e.getCause().toString(), 0, 2000));
+			if (e instanceof NoSuchMethodException){
+				sysJobLog.setExceptionInfo("非并发执行任务 NoSuchMethodException:"+sysJob.getTargetMethod()+"，请检查方法参数或方法名");
+			}else {
+				sysJobLog.setExceptionInfo(StringUtils.substring(e.getCause().toString(), 0, 2000));
+			}
 		} else {
 			sysJobLog.setStatus("0");
 		}

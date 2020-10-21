@@ -20,4 +20,7 @@ public class TaskTest {
 		taskTest2.run(params);
 		System.out.println("-----------TaskTest定时任务正在执行" + params + "," + "当前类=TaskTest.run()");
 	}
+
+	public static void main(String[] args) {
+	}
 }

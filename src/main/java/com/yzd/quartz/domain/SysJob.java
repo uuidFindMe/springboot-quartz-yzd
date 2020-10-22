@@ -38,12 +38,12 @@ public class SysJob extends BaseEntity implements Serializable {
 	/**
 	 * 任务名称
 	 */
-	private String jobName = "DEFAULT_JOB_NAME";
+	private String jobName;
 
 	/**
 	 * 任务组名
 	 */
-	private String jobGroup = "DEFAULT_JOB_GROUP";
+	private String jobGroup;
 
 	/**
 	 * cron执行表达式
@@ -51,9 +51,9 @@ public class SysJob extends BaseEntity implements Serializable {
 	private String cronExpression;
 
 	/**
-	 * cron计划策略 0=默认,1=立即触发执行,2=触发一次执行,3=不触发立即执行
+	 * cron计划策略 3=默认,1=立即触发执行,2=触发一次执行,3=不触发立即执行
 	 */
-	private String misfirePolicy = ScheduleConstants.MISFIRE_DEFAULT;
+	private String misfirePolicy;
 
 	/**
 	 * 是否并发执行（0允许 1禁止）

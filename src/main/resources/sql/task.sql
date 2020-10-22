@@ -7,8 +7,8 @@ use quartz;
 -- ----------------------------
 create table if not exists sys_job (
   job_id              bigint(20)     not null auto_increment    comment '任务ID',
-  job_name            varchar(64)   default ''                 comment '任务名称',
-  job_group           varchar(64)   default 'DEFAULT'          comment '任务组名',
+  job_name            varchar(64)   default "DEFAULT_JOB_NAME"           comment '任务名称',
+  job_group           varchar(64)   default "DEFAULT_JOB_GROUP"          comment '任务组名',
   cron_expression     varchar(255)  default ''                 comment 'cron执行表达式',
   bean_name           varchar(200)  not null                   comment '调用目标job的beanName',
   target_method       varchar(200)  not null                   comment '调用目标job的targetMethod',
@@ -23,7 +23,7 @@ create table if not exists sys_job (
   primary key (job_id, job_name, job_group)
 ) engine=innodb auto_increment=100 comment = '定时任务调度表';
 
--- insert into sys_job values(1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams',        '0/10 * * * * ?', '3', '1', '1', 'admin', '2018-03-16 11-33-00', 'ry', '2018-03-16 11-33-00', '');
+-- insert into sys_job values(1, 'DEFAULT_JOB_NAME', 'DEFAULT_GROUP', '0 0 0 * * ?', 'propertyQuartzServiceCronTask', 'doSyncHouseInfo', '3', '1', '0','admin', '2020-10-22 11:33:00', 'admin', '2020-10-22 11:33:00', '房产自动同步任务');
 
 -- ----------------------------
 -- 、定时任务调度日志表

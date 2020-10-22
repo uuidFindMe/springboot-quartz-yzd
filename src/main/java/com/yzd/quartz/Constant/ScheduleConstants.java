@@ -14,10 +14,6 @@ public class ScheduleConstants {
 	public static final String TASK_PROPERTIES = "TASK_PROPERTIES";
 
 	/**
-	 * 默认
-	 */
-	public static final String MISFIRE_DEFAULT = "0";
-	/**
 	 * 参考：https://blog.csdn.net/liufei198613/article/details/77746892
 	 CronTrigger
 	 withMisfireHandlingInstructionDoNothing

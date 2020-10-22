@@ -197,6 +197,7 @@ public class SysJobServiceImpl implements ISysJobService {
 		}
 		int rows = jobMapper.insertJob(job);
 		if (rows > 0) {
+			job=selectJobById(job.getJobId());
 			ScheduleUtils.createScheduleJob(scheduler, job);
 		}
 		return rows;

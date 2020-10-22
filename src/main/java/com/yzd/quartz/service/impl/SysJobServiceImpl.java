@@ -213,7 +213,8 @@ public class SysJobServiceImpl implements ISysJobService {
 		SysJob oldJob = selectJobById(job.getJobId());
 		int rows = jobMapper.updateJob(job);
 		if (rows > 0) {
-			updateSchedulerJob(job, oldJob);
+			SysJob sysJob = selectJobById(job.getJobId());
+			updateSchedulerJob(sysJob, oldJob);
 		}
 		return rows;
 	}
